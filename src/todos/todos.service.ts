@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 import { CreateTodoDto } from "./dto/create-todo.dto";
 import {PrismaService} from "src/utils/prisma";
@@ -50,6 +50,29 @@ export class TodoService {
         return {
             todos : todos
         }
+    }
+    async deleteTask(userId : string, todoId : string) {
+        const todo = await this.prisma.todo.findUnique({
+            where : {
+                id : todoId
+            },
+            select : {
+                userId : true
+            }
+        })
+        if(!todo) {
+            throw new NotFoundException("Todo not found")
+        }
+        if (todo.userId!== userId) {
+            throw new ForbiddenException("Access denied")
+        }
+        
+        await this.prisma.todo.delete({
+            where : {
+                id : todoId
+            }
+        })
+        return {message : "Todo deleted succesfully"}
     }
 }
 
