@@ -1,28 +1,45 @@
-import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { 
+    Body, 
+    Controller, 
+    Get, 
+    HttpCode, 
+    Post, 
+    Put, 
+    UseGuards
+} from "@nestjs/common";
 import { TodoService } from "./todos.service";
 import { CreateTodoDto } from "./dto/create-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
+import { User } from "../common/decoraters/user.decorator";
+import { AuthGuard } from "src/common/guards/auth.guard";
 
+@UseGuards(AuthGuard)
 @Controller("api/todo")
 export class TodoController {
     constructor(private readonly todoService : TodoService) {}
-    @Post()
+    
+    @Post("/createTask")
+    @HttpCode(200)
     async createTask(
-        @Param() userId : string,
+        @User() userId : string,
         @Body() body : CreateTodoDto
     ) {
         return await this.todoService.createTodo(body, userId)
     }
-    @Put()
+    
+    @Put("/updateTask")
+    @HttpCode(200)
     async updateTask(
-        @Param() userId : string,
+        @User() userId : string,
         @Body() body : UpdateTodoDto
     ) {
         return await this.todoService.updateTodo(body, userId)
     }
-    @Get()
+    
+    @Get('/todos')
+    @HttpCode(200)
     async getTodos(
-        @Param() userId : string
+        @User() userId : string
     ) {
         return await this.todoService.getTodos(userId)
     }
