@@ -12,12 +12,19 @@ import { CreateTodoDto } from "./dto/create-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
 import { User } from "../common/decoraters/user.decorator";
 import { AuthGuard } from "src/common/guards/auth.guard";
+import { Throttle } from "@nestjs/throttler";
 
 @UseGuards(AuthGuard)
+
 @Controller("api/todo")
 export class TodoController {
     constructor(private readonly todoService : TodoService) {}
-    
+    @Throttle({
+        default : {
+            ttl : 60000,
+            limit : 5
+        }
+    })
     @Post("/createTask")
     @HttpCode(200)
     async createTask(
@@ -27,6 +34,12 @@ export class TodoController {
         return await this.todoService.createTodo(body, userId)
     }
     
+    @Throttle({
+        default : {
+            ttl : 60000,
+            limit : 5
+        }
+    })
     @Put("/updateTask")
     @HttpCode(200)
     async updateTask(
