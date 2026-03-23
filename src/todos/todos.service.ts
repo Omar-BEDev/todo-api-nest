@@ -1,7 +1,10 @@
-import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
-import { PrismaClient } from "@prisma/client";
+import { 
+    ForbiddenException, 
+    Injectable, 
+    NotFoundException 
+} from "@nestjs/common";
 import { CreateTodoDto } from "./dto/create-todo.dto";
-import {PrismaService} from "src/utils/prisma";
+import {PrismaService} from "../utils/prisma";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
 
 
