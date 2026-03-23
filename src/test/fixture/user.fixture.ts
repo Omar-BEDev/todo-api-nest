@@ -27,16 +27,16 @@ export const generateInValidSignUpData = (): SignUpDto => {
     const inValidSignUpData : SignUpDto= { 
     name : faker.person.firstName(),
     nickName : faker.person.lastName(),
-    email : faker.internet.email(),
+    email : "test-nest-pr",
     password : faker.internet.password()
     }
     return inValidSignUpData
 }
 
-export const generateInValidSignInData = (inValidSignUpData: SignUpDto) : SignInDto => {
-   const inValidSignInData : SignInDto = {
-      email : inValidSignUpData.email,
-      password : TEST_PASSWORD
-  }
-  return inValidSignInData
-}
+export const generateInValidSignInData = () : SignInDto => {
+    const inValidSignInData : SignInDto = {
+       email : faker.internet.displayName(),
+       password : faker.internet.password()
+   }
+   return inValidSignInData
+ }
