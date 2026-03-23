@@ -11,7 +11,7 @@ import { TodoService } from "./todos.service";
 import { CreateTodoDto } from "./dto/create-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
 import { User } from "../common/decoraters/user.decorator";
-import { AuthGuard } from "src/common/guards/auth.guard";
+import { AuthGuard } from "../common/guards/auth.guard";
 import { Throttle } from "@nestjs/throttler";
 
 @UseGuards(AuthGuard)

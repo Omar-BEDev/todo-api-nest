@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { SignInDto } from "./dto/sign-in.dto";
-import { PrismaService } from "src/utils/prisma";
+import { PrismaService } from "../utils/prisma";
 import * as bcrypt from "bcrypt"
 import { SignUpDto } from "./dto/sign-up.dto";
 
@@ -96,7 +96,7 @@ export class AuthService {
         const token = await this.createToken(newUser.id).catch(() => {
             throw new InternalServerErrorException("Something went wrong, please try again")
         })
-        return {acces_token : token}
+        return {access_token : token}
     }
 }
 
