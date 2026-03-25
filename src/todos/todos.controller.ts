@@ -3,6 +3,7 @@ import {
     Controller, 
     Get, 
     HttpCode, 
+    Param, 
     Post, 
     Put, 
     UseGuards
@@ -28,10 +29,10 @@ export class TodoController {
     @Post("/createTask")
     @HttpCode(200)
     async createTask(
-        @User() userId : string,
+        @Param("todoId") todoId : string,
         @Body() body : CreateTodoDto
     ) {
-        return await this.todoService.createTodo(body, userId)
+        return await this.todoService.createTodo(body, todoId)
     }
     
     @Throttle({
@@ -43,10 +44,10 @@ export class TodoController {
     @Put("/updateTask")
     @HttpCode(200)
     async updateTask(
-        @User() userId : string,
+        @Param('todoId') todoId : string,
         @Body() body : UpdateTodoDto
     ) {
-        return await this.todoService.updateTodo(body, userId)
+        return await this.todoService.updateTodo(body, todoId)
     }
     
     @Get('/todos')

@@ -25,10 +25,10 @@ export class TodoService {
         }
     }
 
-    async updateTodo(body : UpdateTodoDto, userId : string) {
+    async updateTodo(body : UpdateTodoDto, todoId : string) {
         await this.prisma.todo.update({
             where : {
-                id : userId
+                id : todoId
             },
             data : {
                 name : body.name,
@@ -39,10 +39,10 @@ export class TodoService {
             message : "update todo succefully",
         }
     }
-    async getTodos(userId : string) {
+    async getTodos(todoId : string) {
         const todos = await this.prisma.todo.findMany({
             where : {
-                id : userId
+                id : todoId
             },
             select : {
                 name : true,
@@ -66,7 +66,7 @@ export class TodoService {
         if(!todo) {
             throw new NotFoundException("Todo not found")
         }
-        if (todo.userId!== userId) {
+        if (todo.userId !== userId) {
             throw new ForbiddenException("Access denied")
         }
         
