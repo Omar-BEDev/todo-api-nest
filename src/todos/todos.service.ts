@@ -39,10 +39,10 @@ export class TodoService {
             message : "update todo succefully",
         }
     }
-    async getTodos(todoId : string) {
+    async getTodos(userId : string) {
         const todos = await this.prisma.todo.findMany({
             where : {
-                id : todoId
+                id : userId
             },
             select : {
                 name : true,
