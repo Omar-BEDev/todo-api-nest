@@ -9,7 +9,7 @@ async function bootstrap() {
     whitelist : true,
     transform : true
   }))
-  app.use(helmet)
+  app.use(helmet())
   await app.listen(process.env.PORT ?? 3000);
 
 }
