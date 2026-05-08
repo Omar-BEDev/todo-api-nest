@@ -42,7 +42,7 @@ export class TodoService {
     async getTodos(userId : string) {
         const todos = await this.prisma.todo.findMany({
             where : {
-                id : userId
+                userId : userId
             },
             select : {
                 name : true,
