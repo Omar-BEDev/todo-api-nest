@@ -61,7 +61,7 @@ export class TodoController {
     @Delete('/deleteTodos/:todoId')
     @HttpCode(203)
     async deleteTask(
-        @Param('todoid') todoId : string,
+        @Param('todoId') todoId : string,
         @User() userId : string
     )
     {
