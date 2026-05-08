@@ -6,7 +6,7 @@ import {
     Param, 
     Post, 
     Put, 
-    UseGuards
+    UseGuards,
 } from "@nestjs/common";
 import { TodoService } from "./todos.service";
 import { CreateTodoDto } from "./dto/create-todo.dto";
@@ -29,10 +29,9 @@ export class TodoController {
     @Post("/createTask")
     @HttpCode(200)
     async createTask(
-        @Param("todoId") todoId : string,
         @Body() body : CreateTodoDto
     ) {
-        return await this.todoService.createTodo(body, todoId)
+        return await this.todoService.createTodo(body, userId)
     }
     
     @Throttle({
@@ -41,7 +40,7 @@ export class TodoController {
             limit : 5
         }
     })
-    @Put("/updateTask")
+    @Put("/updateTask/:todoId")
     @HttpCode(200)
     async updateTask(
         @Param('todoId') todoId : string,
@@ -56,5 +55,13 @@ export class TodoController {
         @User() userId : string
     ) {
         return await this.todoService.getTodos(userId)
+    }
+    @Delete('/deleteTodos/:todoid')
+    @HttpCode(203)
+    async deleteTask(
+        @Param('todoId') todoId : string 
+    )
+    {
+        
     }
 }
