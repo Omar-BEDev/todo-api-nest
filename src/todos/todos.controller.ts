@@ -59,9 +59,10 @@ export class TodoController {
     @Delete('/deleteTodos/:todoid')
     @HttpCode(203)
     async deleteTask(
-        @Param('todoId') todoId : string 
+        @Param('todoId') todoId : string,
+        @User() userId : string
     )
     {
-        
+        return await this.tosoService.deleteTask(userId, todoId)
     }
 }
